@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
@@ -8,6 +8,7 @@ import { toast } from 'react-toastify'
 
 function PostEdit(props) {
 
+  const navigate = useNavigate()
   const params = useParams()
   const postURL = `https://kn8a-blog-api.herokuapp.com/api/posts/${params.postId}`
   const commentsURL = `https://kn8a-blog-api.herokuapp.com/api/posts/${params.postId}/comments`
@@ -44,6 +45,7 @@ function PostEdit(props) {
     axios.put(postURL, post, {headers: {'Authorization': `Bearer ${props.token}`}})
     .then(()=>{
       toast.success('Post updated successfully')
+      navigate('/')
       });
     }
   
