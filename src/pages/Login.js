@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 function Login(props) {
@@ -7,6 +7,11 @@ function Login(props) {
     const [credentials, setCredentials] = useState(null)
     const loginURL = 'https://kn8a-blog-api.herokuapp.com/api/users/login'
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if (props.token) {
+          navigate('/')
+      }})
 
     const validateUser = (e) => {
         e.preventDefault()  
