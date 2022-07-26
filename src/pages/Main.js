@@ -18,7 +18,6 @@ function Main(props) {
     } else {
       axios.get(postsURL, {headers: {"Authorization": `Bearer ${props.token}`}})
       .then((response) => {
-        console.log(response.data)
         setPosts(response.data)
       })
       .catch((err)=> {

@@ -9,11 +9,11 @@ function Login(props) {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (props.token) {
+        if (props.token) { //if logged in go to /
           navigate('/')
       }})
 
-    const validateUser = (e) => {
+    const validateUser = (e) => { //validate login credentials
         e.preventDefault()  
         axios.post(loginURL, credentials)
         .then( (response) => {
@@ -35,7 +35,6 @@ function Login(props) {
             ...credentials,
             [e.target.name]: value
         })
-        console.log(credentials)
     }
 
 

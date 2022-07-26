@@ -10,21 +10,22 @@ function PostEdit(props) {
 
   const navigate = useNavigate()
   const params = useParams()
-  const postURL = `https://kn8a-blog-api.herokuapp.com/api/posts/${params.postId}`
+  const postURL = `https://kn8a-blog-api.herokuapp.com/api/posts/all/${params.postId}`
   const commentsURL = `https://kn8a-blog-api.herokuapp.com/api/posts/${params.postId}/comments`
+  const updatePostURL = `https://kn8a-blog-api.herokuapp.com/api/posts/${params.postId}`
 
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState(null)
 
 
   useEffect(() => {
-    axios.get(`${postURL}`).then((response) => {
+    axios.get(`${postURL}`, {headers: {"Authorization": `Bearer ${props.token}`}}).then((response) => { //get post details
       setPost(response.data);
     });
   },[]);
 
   useEffect(()=>{
-    axios.get(`${commentsURL}`).then((response) => {
+    axios.get(`${commentsURL}`).then((response) => { //get comments
       setComments(response.data);
     });
   },[])
@@ -42,7 +43,7 @@ function PostEdit(props) {
   //* Submit post edits
   const postSubmit = (e) => {
     e.preventDefault()
-    axios.put(postURL, post, {headers: {'Authorization': `Bearer ${props.token}`}})
+    axios.put(updatePostURL, post, {headers: {'Authorization': `Bearer ${props.token}`}})
     .then(()=>{
       toast.success('Post updated successfully')
       navigate('/')
@@ -55,7 +56,7 @@ function PostEdit(props) {
           <form onSubmit={postSubmit}>
             <input name='title' onChange={onEdit} value={post.title}></input>
             <textarea name='content' onChange={onEdit} value={post.content}></textarea>
-            <select name='status' defaultValue={post.status}>
+            <select name='status' defaultValue={post.status} onChange={onEdit}>
                 <option value="draft">draft</option>
                 <option value="published">published</option>
                 <option value="archived">archived</option>
@@ -66,9 +67,8 @@ function PostEdit(props) {
             {comments.map(comment => {
                 return (
                     <div>
-                    <p>{comment.comment}</p>
-                    <p>Posted by {comment.author} on {DateTime.fromISO(comment.createdAt).toLocaleString(DateTime.DATETIME_MED_WITH_SECONDS)}</p>
-
+                      <p>{comment.comment}</p>
+                      <p>Posted by {comment.author} on {DateTime.fromISO(comment.createdAt).toLocaleString(DateTime.DATETIME_MED_WITH_SECONDS)}</p>
                     </div>
                 )
             })}

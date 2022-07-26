@@ -12,7 +12,7 @@ function App() {
 
   const [token, setToken] = useState(null)
   
-  const tokenToState = (JWTtoken) => {
+  const tokenToState = (JWTtoken) => { //gets token from Login page
     setToken(JWTtoken)
   }
 
