@@ -41,8 +41,8 @@ function Login(props) {
   return (
     <div>
         <form onSubmit={validateUser}>
-            <input name='username' onChange={onChange}></input>
-            <input name='password' onChange={onChange}></input>
+            <input type='text' name='username' onChange={onChange}></input>
+            <input type='password' name='password' onChange={onChange}></input>
             <button type='submit'>Login</button>
         </form>
     </div>
