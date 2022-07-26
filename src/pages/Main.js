@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Spinner from '../components/Spinner'
+import { Link } from 'react-router-dom'
+import { DateTime } from 'luxon'
 
 function Main(props) {
 
@@ -29,7 +31,18 @@ function Main(props) {
     console.log(posts)
 
   return (
-    <div>Main</div>
+    <div>
+      {posts.map(post => {
+        const id= '/posts/' + post._id
+        return (
+          <div>
+          <Link to={id}><h3>{post.title}</h3></Link>
+          <p>{DateTime.fromISO(post.createdAt).toLocaleString(DateTime.DATE_MED)}</p>
+          </div>
+        )
+
+      })}
+    </div>
   )
 }
 

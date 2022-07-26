@@ -41,7 +41,7 @@ function PostEdit(props) {
   //* Submit post edits
   const postSubmit = (e) => {
     e.preventDefault()
-    axios.put(postURL, post)
+    axios.put(postURL, post, {headers: {'Authorization': `Bearer ${props.token}`}})
     .then(()=>{
       toast.success('Post updated successfully')
       });
@@ -53,7 +53,7 @@ function PostEdit(props) {
           <form onSubmit={postSubmit}>
             <input name='title' onChange={onEdit} value={post.title}></input>
             <textarea name='content' onChange={onEdit} value={post.content}></textarea>
-            <select name='status' value={post.status}>
+            <select name='status' defaultValue={post.status}>
                 <option value="draft">draft</option>
                 <option value="published">published</option>
                 <option value="archived">archived</option>
