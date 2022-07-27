@@ -58,6 +58,17 @@ function PostEdit(props) {
       });
   }
 
+  const deleteComment = (e) => {
+    const delCommentURL = `https://kn8a-blog-api.herokuapp.com/api/posts/${params.postId}/comments/${e.target.id}`
+    axios.delete(delCommentURL, {headers: {'Authorization': `Bearer ${props.token}`}})
+    .then(()=>{
+      toast.success('Comment deleted')
+      axios.get(`${commentsURL}`).then((response) => { //refresh comments
+        setComments(response.data);
+      });
+      });
+  }
+
   return (
     <div>
           <form onSubmit={postSubmit}>
@@ -76,7 +87,8 @@ function PostEdit(props) {
                 return (
                     <div>
                       <p>{comment.comment}</p>
-                      <p>Posted by {comment.author} on {DateTime.fromISO(comment.createdAt).toLocaleString(DateTime.DATETIME_MED_WITH_SECONDS)}</p>
+                      <p>Posted by {comment.author} on {DateTime.fromISO(comment.createdAt).toLocaleString(DateTime.DATETIME_MED_WITH_SECONDS)} <button id={comment._id} onClick={deleteComment}>Delete comment</button></p>
+                      
                     </div>
                 )
             })}
