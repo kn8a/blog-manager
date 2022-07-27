@@ -50,6 +50,13 @@ function PostEdit(props) {
       });
     }
   
+  const deletePost = () => {
+    axios.delete(updatePostURL, {headers: {'Authorization': `Bearer ${props.token}`}})
+    .then(()=>{
+      toast.success('Post deleted')
+      navigate('/')
+      });
+  }
 
   return (
     <div>
@@ -63,6 +70,7 @@ function PostEdit(props) {
             </select>
             <button type='submit'>Submit</button>
           </form>
+          <button onClick={deletePost}>Delete post</button>
         <div>
             {comments.map(comment => {
                 return (

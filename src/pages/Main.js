@@ -35,8 +35,8 @@ function Main(props) {
         const id= '/posts/' + post._id
         return (
           <div>
-          <Link to={id}><h3>{post.title}</h3></Link>
-          <p>{DateTime.fromISO(post.createdAt).toLocaleString(DateTime.DATE_MED)}</p>
+            <h3><Link to={id}>{post.title}</Link></h3>
+            <p>{DateTime.fromISO(post.createdAt).toLocaleString(DateTime.DATE_MED)} / {post.status}</p>
           </div>
         )
 
