@@ -19,7 +19,7 @@ function PostCreate(props) {
         status: 'draft'
     })
 
-    const newPostURL = `http://localhost:5000/api/posts`
+    const newPostURL = `https://kn8a-blog-api.herokuapp.com/api/posts`
 
     const onEdit = (e) => {
         const value = e.target.value
