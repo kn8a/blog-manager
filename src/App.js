@@ -7,6 +7,7 @@ import PostEdit from "./pages/PostEdit";
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Login from "./pages/Login";
+import PostCreate from "./pages/PostCreate";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route path='/login' element={<Login token={token} tokenToState={tokenToState}/>} />
         <Route path='/' element={<Main token={token}/>} />
         <Route path='/posts/:postId' exact element={<PostEdit token={token}/>} />
+        <Route path='/posts/new' exact element={<PostCreate token={token}/>} />
       </Routes>
     </Router>
     <ToastContainer/>

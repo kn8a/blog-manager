@@ -29,8 +29,13 @@ function Main(props) {
     if (!posts) return <Spinner/>
     console.log(posts)
 
+    const newPostBtn = () => {
+      navigate('/posts/new')
+    }
+
   return (
     <div>
+      <button onClick={newPostBtn}>Create new post</button>
       {posts.map(post => {
         const id= '/posts/' + post._id
         return (
