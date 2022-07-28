@@ -18,7 +18,7 @@ function App() {
   }
 
   return (
-    <>
+    <div className='container is-max-desktop'>
     <Router>
       <Routes>
         <Route path='/login' element={<Login token={token} tokenToState={tokenToState}/>} />
@@ -28,7 +28,7 @@ function App() {
       </Routes>
     </Router>
     <ToastContainer/>
-    </>
+    </div>
   );
 }
 

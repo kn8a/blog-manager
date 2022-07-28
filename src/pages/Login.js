@@ -1,12 +1,15 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Spinner from '../components/Spinner'
 
 function Login(props) {
 
     const [credentials, setCredentials] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
     const loginURL = 'https://kn8a-blog-api.herokuapp.com/api/users/login'
     const navigate = useNavigate()
+
 
     useEffect(() => {
         if (props.token) { //if logged in go to /
@@ -14,13 +17,14 @@ function Login(props) {
       }})
 
     const validateUser = (e) => { //validate login credentials
+        setIsLoading(true)
         e.preventDefault()  
         axios.post(loginURL, credentials)
         .then( (response) => {
-            console.log(response)
             if (response.data.token) {
                 props.tokenToState(response.data.token)
                 setCredentials(null)
+                setIsLoading(false)
                 navigate('/')
             }
         })
@@ -37,13 +41,29 @@ function Login(props) {
         })
     }
 
+    if (isLoading) return <Spinner/>
+
 
   return (
-    <div>
-        <form onSubmit={validateUser}>
-            <input type='text' name='username' onChange={onChange}></input>
-            <input type='password' name='password' onChange={onChange}></input>
-            <button type='submit'>Login</button>
+    <div className='container'>
+        
+
+        <form className="box" onSubmit={validateUser}>
+            <div className="field">
+                <label className="label">Username</label>
+                <div className="control">
+                    <input className="input" type='text' name='username' onChange={onChange}></input>
+                </div>
+            </div>
+
+        <div className="field">
+            <label className="label">Password</label>
+            <div className="control">
+            <input className="input" type="password" name='password' onChange={onChange} placeholder="********"></input>
+            </div>
+        </div>
+
+        <button className="button is-primary" type='submit'>Sign in</button>
         </form>
     </div>
   )
