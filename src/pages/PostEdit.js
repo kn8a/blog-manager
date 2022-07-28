@@ -120,8 +120,12 @@ function PostEdit(props) {
                   <button type='submit' className='button is-success is-rounded'>Save</button>
                 </div>
                 <div class="control">
-                  <button type='button'  onClick={deletePost} className="button is-danger is-rounded is-outlined">Delete post</button>
+                  <button type='button'  onClick={() => navigate('/')} className="button is-danger is-rounded is-outlined">Cancel</button>
                 </div>
+                <div class="control">
+                  <button type='button'  onClick={deletePost} className="button is-danger is-rounded ">Delete post</button>
+                </div>
+
               </div>
                 
                 
