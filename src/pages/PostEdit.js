@@ -18,12 +18,25 @@ function PostEdit(props) {
   const [comments, setComments] = useState(null)
   
 
-
   useEffect(() => {
-    axios.get(`${postURL}`, {headers: {"Authorization": `Bearer ${props.token}`}}).then((response) => { //get post details
+    if (!props.token) {
+      navigate('/login')
+  } else {
+    axios.get(`${postURL}`, {headers: {"Authorization": `Bearer ${props.token}`}})
+    .then((response) => { //get post details
       setPost(response.data);
-    });
-  },[]);
+    })
+    .catch((err)=> {
+      console.log(err)
+    })
+  }
+  }, [])
+
+  // useEffect(() => {
+  //   axios.get(`${postURL}`, {headers: {"Authorization": `Bearer ${props.token}`}}).then((response) => { //get post details
+  //     setPost(response.data);
+  //   });
+  // },[]);
 
   useEffect(()=>{
     axios.get(`${commentsURL}`).then((response) => { //get comments
@@ -72,7 +85,7 @@ function PostEdit(props) {
 
   return (
     <div className='container is-max-desktop'>
-          
+          <div className='block'></div>
           <div className='block'>
           <div class="field">
                   <button type='button'  onClick={()=>navigate('/')} className="button is-info is-rounded">{'<- '}Back to all posts</button>
@@ -104,10 +117,10 @@ function PostEdit(props) {
               </div>
                 </div>
                 <div class="control">
-                  <button type='submit' className='button is-primary is-rounded'>Save</button>
+                  <button type='submit' className='button is-success is-rounded'>Save</button>
                 </div>
                 <div class="control">
-                  <button type='button'  onClick={deletePost} className="button is-danger is-rounded">Delete post</button>
+                  <button type='button'  onClick={deletePost} className="button is-danger is-rounded is-outlined">Delete post</button>
                 </div>
               </div>
                 

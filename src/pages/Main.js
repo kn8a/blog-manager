@@ -34,18 +34,31 @@ function Main(props) {
     }
 
   return (
-    <div>
-      <button onClick={newPostBtn} className="button is-primary">Create new post</button>
-      {posts.map(post => {
-        const id= '/posts/' + post._id
-        return (
-          <div>
-            <h3><Link to={id}>{post.title}</Link></h3>
-            <p>{DateTime.fromISO(post.createdAt).toLocaleString(DateTime.DATE_MED)} / {post.status}</p>
-          </div>
-        )
+    <div className='container is-max-desktop'>
+      <div className='block'>
+
+      </div>
+      <div className='block'>
+        <button onClick={newPostBtn} className="button is-primary is-large is-fullwidth is-rounded">Create new post</button>
+      </div>
+      <div className='box'>
+        {posts.map(post => {
+          const id= '/posts/' + post._id
+          return (
+            <div className='box'>
+              <h3 className='title is-4'><Link to={id}>{post.title}</Link></h3>
+              <div className='content'>
+              <p className='subtitle is-6'>{DateTime.fromISO(post.createdAt).toLocaleString(DateTime.DATE_MED)} / {post.status}</p>
+              </div>
+              
+              
+              <button className='button is-info is-rounded is-small' onClick={() => navigate(id)}>Edit</button>
+            </div>
+          )
 
       })}
+      </div>
+      
     </div>
   )
 }
