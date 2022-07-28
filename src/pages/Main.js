@@ -35,7 +35,7 @@ function Main(props) {
 
   return (
     <div>
-      <button onClick={newPostBtn}>Create new post</button>
+      <button onClick={newPostBtn} className="button is-primary">Create new post</button>
       {posts.map(post => {
         const id= '/posts/' + post._id
         return (
